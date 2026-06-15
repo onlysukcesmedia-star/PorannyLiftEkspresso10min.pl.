@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poranny Lifting Twarzy 10 min - Codziennie Młodsza</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;700;900&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        maven: ['Maven Pro', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            50: '#fdfbf2',
+                            100: '#fbf4db',
+                            200: '#f4e4af',
+                            300: '#edd17e',
+                            400: '#e4b953',
+                            500: '#d4af37', // Główny złoty
+                            600: '#b8922b',
+                            700: '#937121',
+                            800: '#73571d',
+                            900: '#5c461a',
+                        },
+                        dark: {
+                            DEFAULT: '#111111',
+                            light: '#1f1f1f',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 30s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-dark {
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-gold {
+            background: rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        body {
+            font-family: 'Maven Pro', sans-serif;
+            background-color: #fcfcfc;
+            color: #111111;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Sora', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- TOP BAR COUNTDOWN & DATE -->
+<div class="bg-dark text-white text-center py-2.5 px-4 text-xs font-medium flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-b border-gold-500/20 relative z-50">
+    <span class="text-gold-400 font-bold uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        Oferta dostępna
+    </span>
+    <span class="text-neutral-300">Data: <span id="current-date" class="font-bold text-white"></span></span>
+    <span class="text-neutral-500 hidden sm:inline">|</span>
+    <span class="flex items-center gap-1.5">
+        <span>Pozostało:</span>
+        <span id="timer-countdown" class="font-bold text-gold-500 font-mono bg-black/30 px-2.5 py-0.5 rounded border border-gold-500/30">24:00</span>
+    </span>
+</div>
+
+<!-- ABOVE THE FOLD (100% VH) -->
+<section class="relative min-h-screen pt-12 pb-12 px-4 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-amber-50/30 via-white to-stone-50">
+    <!-- Gentle gold glows in the corners -->
+    <div class="absolute -top-10 -left-10 w-48 h-48 bg-gold-300/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -top-10 -right-10 w-48 h-48 bg-gold-300/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-gold-200/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-gold-200/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Background glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-gold-200/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 left-5 w-[200px] h-[200px] bg-neutral-200/30 rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="max-w-md mx-auto w-full flex-grow flex flex-col justify-center text-center z-10">
+        
+        <!-- Centered Individual Profile Active Status (Anita Krzekotowska) -->
+        <div class="flex flex-col items-center justify-center mb-6">
+            <div class="relative inline-block">
+                <!-- Custom glass round frame for profile picture (Enlarged) -->
+                <div class="p-1 glass rounded-full shadow-md border border-gold-200/30">
+                    <img src="https://i.imgur.com/DgJIylD.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Anita+Krzekotowska'" alt="Anita Krzekotowska" class="w-28 h-28 rounded-full object-cover border border-white">
+                </div>
+                <!-- Flashing Green Dot (Ping animation) -->
+                <span class="absolute bottom-1 right-1 flex h-5.5 w-5.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-5.5 w-5.5 bg-green-500 ring-2 ring-white"></span>
+                </span>
+            </div>
+            <!-- Name & Status Text below photo -->
+            <div class="mt-2 text-center">
+                <span class="text-xs font-bold uppercase tracking-wider text-dark block font-sora">Anita Krzekotowska</span>
+                <span class="text-[10px] text-green-600 font-semibold flex items-center justify-center gap-1 mt-0.5">
+                    <span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Teraz aktywna
+                </span>
+            </div>
+        </div>
+
+        <!-- Badge -->
+        <span class="inline-block mx-auto glass-gold text-gold-700 text-xs font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 animate-bounce">
+            Codzienne Lift Espresso 10 min ✨
+        </span>
+
+        <!-- Main Heading (First line strictly whitespace-nowrap and mobile-optimized, second line below it) -->
+        <h1 class="font-extrabold tracking-tight text-dark leading-tight mb-4 flex flex-col items-center">
+            <span class="block whitespace-nowrap text-[20px] sm:text-3xl md:text-4xl"> Śpisz na boku?</span>
+            <span class="relative inline-block mt-1">
+                <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-dark to-gold-600 font-extrabold uppercase text-[28px] sm:text-4xl"></span>
+            </span>
+        </h1>
+
+        <!-- Subheading -->
+        <h2 class="text-lg font-bold text-gold-600 mb-6 font-sora">
+            To dlatego budzisz się z opuchniętą twarzą, zagnieceniami na skórze i coraz mniej wyraźnym owalem twarzy. 
+        </h2>
+
+        <!-- Hook Paragraph -->
+        <p class="text-sm text-neutral-600 leading-relaxed mb-8 max-w-xs mx-auto">
+            Poranne Lift Espresso to 10 minut o poranku, które przywracają twarzy jędrność , glow i świeżość, dzięki którym makijaż staje się dodatkiem, a nie koniecznością.
+        </p>
+
+        <!-- Call to Action -->
+        <div class="space-y-4">
+            <a href="#oferta" class="inline-block w-full py-4 px-6 bg-gradient-to-r from-dark to-neutral-800 text-white rounded-2xl font-bold font-sora shadow-lg shadow-black/10 hover:shadow-gold-500/10 hover:from-gold-500 hover:to-gold-600 hover:text-dark transition-all duration-300 text-sm tracking-wide transform active:scale-95 animate-pulse-slow">
+                🔥 TAK, CHCĘ TWARZY BEZ PORANNYCH OBRZĘKÓW
+            </a>
+            <div class="flex items-center justify-center gap-2 text-[11px] text-neutral-400 font-semibold uppercase tracking-wider">
+                <i data-lucide="shield-check" class="w-4 h-4 text-gold-500"></i> Gwarantuję że już jutro Twoja Twarz będzie pełna blasku !
+            </div>
+        </div>
+    </div>
+
+    <!-- Micro interactive indicator at the bottom -->
+    <div class="w-full flex justify-center mt-6">
+        <a href="#historia" class="animate-bounce flex flex-col items-center text-[10px] text-neutral-400 uppercase tracking-widest gap-1">
+            Poznaj moją historię
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </a>
+    </div>
+</section>
+
+<!-- SEKCJA: HISTORIA MOJEY METAMORFOZY -->
+<section id="historia" class="py-16 px-4 bg-white relative">
+    <div class="max-w-md mx-auto">
+        <!-- Mini Header -->
+        <div class="text-center mb-8">
+            <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Prawdziwa transformacja</span>
+            <h2 class="text-2xl font-extrabold text-dark tracking-tight">POZNAJ MOJĄ HISTORIĘ</h2>
+            <p class="text-xs text-neutral-400 mt-2 font-medium">Sprawdź jak te 10 minut codziennej pracy zmieniło moją twarz 👇</p>
+        </div>
+
+        <!-- Metamorphosis Image with Interactive Slide Frame -->
+        <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8 border border-neutral-100 group">
+            <img src="https://i.imgur.com/2xEUHj1.png" onerror="this.src='https://placehold.co/400x500/d4af37/ffffff?text=Metamorfoza'" alt="Metamorfoza" class="w-full h-auto object-cover">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 text-white">
+                <span class="bg-gold-500 text-dark text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-2 inline-block">
+                    Realny Efekt Lifting Ekspresso
+                </span>
+                <p class="text-sm font-semibold text-neutral-200">Wiek to tylko liczba. Moja twarz zyskała nowe życie dzięki tym 10 min o poranku.</p>
+            </div>
+        </div>
+
+        <!-- Story Narrative Text (Unified, Frameless, beautifully structured with clean text and requested highlights) -->
+        <div class="space-y-5 text-sm text-neutral-700 leading-relaxed px-1 text-justify">
+            <p>
+                <span class="font-extrabold text-dark">Pracowałam wiele lat w korporacji</span> pod ciągłą presją i w nieustannym biegu, zupełnie zapominając o sobie. Każego kolejnego dnia moja twarz wyglądała rano dokładnie tak, jak się czułam – była opuchnięta, zmęczona i całkowicie pozbawiona energii.
+            </p>
+
+            <p class="italic border-l-2 border-gold-500 pl-4 py-1 text-neutral-600">
+                "Przyzwyczaiłam się, że moje odbicie w lustrze co rano przypomina mi o <span class="font-extrabold text-dark">cenie, jaką płacę</span>… Czułam, że ta zewnętrzna maska zmęczenia zaczyna przykrywać to, kim naprawdę jestem."
+            </p>
+
+            <p>
+                <span class="font-extrabold text-dark">Próbowałam dosłownie wszystkiego</span>, aby wyjść z tego stanu: kostek lodu, masażu wałkami, coraz droższych kosmetyków i zabiegów. Jednak <span class="font-extrabold text-dark">nic nie działało na dłuższą metę</span> na tyle, bym mogła <span class="font-extrabold text-dark">zobaczyć prawdziwą</span>, trwałą różnicę.
+            </p>
+
+            <!-- Prominent gold pill/capsule-bordered header -->
+            <div class="text-center pt-4 pb-2">
+                <h3 class="font-extrabold text-dark tracking-wide text-sm sm:text-base px-6 py-3 border border-gold-300 bg-gold-100 rounded-full inline-block shadow-sm">
+                    Do momentu, gdy odkryłam, że wszystko leży w moich rękach 🙌 !
+                </h3>
+            </div>
+
+            <p>
+                Dopiero kiedy dowiedziałam się o <span class="font-extrabold text-dark">istocie układu limfatycznego</span>, w końcu zaczęłam wykonywać skuteczne, <span class="font-extrabold text-dark">liftingujące auto-masaże</span> i dodatkowo wprowadziłam kompleksową rutynę <span class="font-extrabold text-dark">pracy z całym ciałem.</span>
+            </p>
+
+            <div class="my-6 py-4 px-5 bg-gradient-to-r from-amber-50 to-orange-50/40 rounded-2xl text-center">
+                <span class="text-xs font-bold text-dark uppercase tracking-widest block mb-1">
+                    ZAUWAŻYSZ EFEKTY NA SWOJEJ TWARZY
+                </span>
+                <span class="text-gold-600 font-extrabold text-lg block tracking-wider uppercase">
+                    ✨ JUŻ JUTRO! ✨
+                </span>
+            </div>
+
+            <p class="text-center font-medium text-neutral-800">
+                A wystarczyło tylko 10 minut każdego poranka... abym mogła odkryć SIEBIE NA NOWO. Co zresztą doskonale widać na zdjęciać!
+            </p>
+
+            <div class="flex items-center justify-center gap-2 text-xs font-bold text-gold-600 pt-4">
+                <i data-lucide="help-circle" class="w-4 h-4"></i> A Twoja twarz brzmi znajomo?
+            </div>
+
+            <div class="text-center pt-6">
+                <a href="#oferta" class="inline-flex items-center gap-2 text-xs font-extrabold text-gold-600 uppercase tracking-widest hover:text-dark transition-all duration-300">
+                    Chcę przejść taką samą zmianę <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEKCJA SOCIAL PROOF -->
+<section class="py-16 px-4 bg-white overflow-hidden relative">
+    <div class="max-w-md mx-auto">
+        <!-- Section Title -->
+        <div class="text-center mb-10">
+            <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Mój autorski program pokochały tysiące kobiet</span>
+            <h2 class="text-2xl font-extrabold text-dark tracking-tight leading-tight">
+                Zwróć twarzy naturalny blask ✨
+            </h2>
+            <p class="text-xs text-neutral-500 mt-2">
+                Pomogłam ponad <span class="text-gold-600 font-extrabold text-sm">1250+ Kobietom</span> z Polski i zagranicy odmłodzić twarz bez wychodzenia z domu.
+            </p>
+        </div>
+
+        <!-- Social Stack of Avatar Images -->
+        <div class="flex items-center justify-center -space-x-3 mb-8">
+            <img src="https://i.imgur.com/0TfN0lO.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+            <img src="https://i.imgur.com/10oqnhg.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+            <img src="https://i.imgur.com/IVFPXRn.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover font-sans">
+            <img src="https://i.imgur.com/mLd6pfC.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+            <img src="https://i.imgur.com/xCAqDdT.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+            <img src="https://i.imgur.com/yzlWihj.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+            <img src="https://i.imgur.com/l043q7p.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover font-sans">
+            <img src="https://i.imgur.com/YDfNdQF.png" onerror="this.src='https://placehold.co/100x100/d4af37/ffffff?text=Kobieta'" alt="Klientka" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+        </div>
+
+        <!-- Auto Scrolling Reviews Banner (Sliding left, halts on touch/hover) -->
+        <div class="mb-12 relative">
+            <p class="text-center text-[10px] text-neutral-400 uppercase tracking-widest mb-3">Prawdziwe opinie moich podopiecznych 👇</p>
+            <div class="w-full overflow-hidden relative">
+                <!-- Wrapper for absolute continuous scrolling effect -->
+                <div class="flex gap-4 animate-marquee hover:[animation-play-state:paused] active:[animation-play-state:paused]" id="opinion-track">
+                    <!-- Cards loop -->
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/vPaS0XL.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+1'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/SVnZnNE.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+2'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/W5NIgkg.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+3'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/QsPr8Cv.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+4'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/o9ZSruc.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+5'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/7DZWIyj.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+6'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/kyqOlGK.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+7'" class="w-full h-auto rounded-xl object-cover font-sans" alt="Opinia">
+                    </div>
+                    <div class="shrink-0 w-64 glass p-2 rounded-2xl shadow-sm border border-neutral-100">
+                        <img src="https://i.imgur.com/4ZS5f77.png" onerror="this.src='https://placehold.co/300x400/eeeeee/333333?text=Opinia+8'" class="w-full h-auto rounded-xl object-cover" alt="Opinia">
+                    </div>
+                </div>
+            </div>
+            <p class="text-[9px] text-center text-neutral-400 mt-2">Przytrzymaj palcem/myszką, aby zatrzymać i przeczytać</p>
+        </div>
+
+
+
+<section id="sekcja-problem" class="py-20 px-4 bg-[#FDFBF7] relative border-y border-[#E5E0D8]">
+    <!-- Subtelny akcent tła -->
+    <div class="absolute top-20 right-0 w-72 h-72 bg-[#EADCC8]/30 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-2xl mx-auto relative z-10">
+        
+        <!-- Nagłówek -->
+        <div class="text-center mb-12">
+            <span class="text-[#BC955C] font-bold text-xs uppercase tracking-[0.25em] block mb-3">
+                Zrozumieć Twoją cerę
+            </span>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#2D2924] tracking-tight leading-tight mb-6">
+                Dlaczego twarz po przebudzeniu wygląda na zmęczoną?
+            </h2>
+            <p class="text-[#7A746B] text-lg leading-relaxed">
+                To efekt naturalnych procesów fizjologicznych, które zachodzą, gdy śpisz... 
+                <span class="block mt-2 font-semibold text-[#2D2924]">wiem, to frustrujące.</span>
+            </p>
+        </div>
+
+        <!-- Wideo -->
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-[#2D2924] mb-12 border border-[#E5E0D8]">
+            <video class="w-full aspect-video object-cover" autoplay muted loop playsinline poster="https://i.imgur.com/R4XSIrv.png">
+                <source src="https://i.imgur.com/R4XSIrv.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Karty Problemów -->
+        <div class="space-y-4">
+            <!-- 01 -->
+            <div class="bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-sm">
+                <div class="flex items-start gap-4">
+                    <span class="bg-[#FEF2F2] text-[#DC2626] w-10 h-10 flex items-center justify-center rounded-full text-xs font-bold shrink-0">01</span>
+                    <div>
+                        <h4 class="font-bold text-[#2D2924] mb-1">Zastój płynów</h4>
+                        <p class="text-sm text-[#7A746B] leading-relaxed">
+                            Pozycja horyzontalna utrudnia drenaż limfatyczny, co rano objawia się obrzękiem twarzy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02 -->
+            <div class="bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-sm">
+                <div class="flex items-start gap-4">
+                    <span class="bg-[#FEF2F2] text-[#DC2626] w-10 h-10 flex items-center justify-center rounded-full text-xs font-bold shrink-0">02</span>
+                    <div>
+                        <h4 class="font-bold text-[#2D2924] mb-1">Brak pompy limfatycznej</h4>
+                        <p class="text-sm text-[#7A746B] leading-relaxed">
+                             Układ limfatyczny potrzebuje ruchu mięśni. Bezruch podczas snu spowalnia oczyszczanie tkanek.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03 -->
+            <div class="bg-white p-6 rounded-2xl border border-[#E5E0D8] shadow-sm">
+                <div class="flex items-start gap-4">
+                    <span class="bg-[#FEF2F2] text-[#DC2626] w-10 h-10 flex items-center justify-center rounded-full text-xs font-bold shrink-0">03</span>
+                    <div>
+                        <h4 class="font-bold text-[#2D2924] mb-1">Spowolnienie metabolizmu</h4>
+                        <p class="text-sm text-[#7A746B] leading-relaxed">
+                            Mniejsze dotlenienie tkanek rano powoduje, że cera staje się szara i ziemista.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- Emotional Pitch & Call to Action (Nowa, estetyczna wersja) -->
+<div class="mt-12 bg-white p-8 rounded-3xl border border-[#E5E0D8] shadow-sm text-center">
+    <p class="text-base text-[#7A746B] leading-relaxed mb-8 max-w-lg mx-auto">
+        Nie musisz się na to godzić. Pokażę Ci, jak działać u źródła – dokładnie tak, jak zrobiłam to ja.
+    </p>
+    
+    <a href="#oferta" class="inline-block w-full max-w-sm py-4 bg-[#DC2626] hover:bg-[#B91C1C] text-white rounded-2xl font-bold transition-all duration-300 text-sm tracking-widest uppercase shadow-md">
+        Dołącz do programu
+    </a>
+</div>
+        
+
+<!-- SEKCJA OPIS ZABIEGU -->
+<section class="py-16 px-4 bg-stone-50 border-t border-b border-neutral-100 relative">
+  <div class="max-w-md mx-auto">
+    <!-- Subtitle -->
+    <div class="text-center mb-8">
+      <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Unikalna Formuła Odmłodzenia</span>
+      <h2 class="text-2xl font-extrabold text-dark tracking-tight leading-tight">
+        Dlaczego właśnie Poranny Lifting Twarzy 10 min?
+      </h2>
+    </div>
+
+
+
+        <!-- Section Image: Ustawiamy standardowe wymiary -->
+        <div class="relative rounded-3xl overflow-hidden shadow-md mb-8 border border-neutral-200">
+            <img src="https://i.imgur.com/gM3leHp.png" onerror="this.src='https://placehold.co/400x300/d4af37/ffffff?text=Poranny+Rytual'" alt="Rytuał" class="w-full h-auto object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent flex items-end p-4">
+                <p class="text-white text-xs font-medium">Sprawdzona wiedza i codzienne wsparcie w Twojej metamorfozie.</p>
+            </div>
+        </div>
+
+        <!-- Description Paragraphs -->
+        <div class="space-y-4 text-xs text-neutral-600 leading-relaxed mb-8">
+            <p>
+                Autorski program stworzyłam na podstawie <strong> pracy w gabinecie</strong> z moimi podopiecznymi i wieloletniej praktyki na własnej twarzy.
+            </p>
+            <p>
+                Jest to kompleksowy, niesamowicie intuicyjny program wideo, który krok po kroku przeprowadzi Cię przez poranny rytuał, który w pełni zadba o <span class="font-extrabold text-dark">Twoją twarz i odkryję ją na NOWO "Pełną blasku i młodości"!</span>
+            </p>
+        </div>
+
+        <div class="text-center">
+            <a href="#oferta" class="inline-block w-full py-4 px-6 bg-dark text-white font-extrabold rounded-2xl hover:bg-gold-500 hover:text-dark shadow-md uppercase tracking-wider text-xs font-sora transition-all duration-300">
+                ODBIERZ PROMOCJĘ
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="photo-section" class="py-16 px-4 bg-white">
+    <div class="max-w-md mx-auto flex flex-col items-center">
+        
+        <!-- Zmieniono kontener zdjęcia, aby był identyczny jak w pierwszej sekcji -->
+        <div class="relative rounded-3xl overflow-hidden shadow-md mb-8 border border-neutral-200 w-full">
+            <div class="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] to-black rounded-[2rem] opacity-20 blur"></div>
+            
+            <img 
+                src="https://i.imgur.com/KNcjCZl.jpeg" 
+                alt="Twoje zdjęcie" 
+                class="relative w-full h-auto object-cover border-4 border-black"
+            >
+        </div>
+        
+        <p class="mt-8 text-black font-medium tracking-wide uppercase text-sm">
+            Twój osobisty akcent
+        </p>
+    </div>
+</section>
+
+<!-- SEKCJA: PRZEBIEG KURSU -->
+<section class="py-16 px-4 bg-white relative">
+    <div class="max-w-md mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-10">
+            <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Program Krok po Kroku</span>
+            <h2 class="text-2xl font-extrabold text-dark tracking-tight leading-tight">
+                Przebieg Kursu "Codzienne Lift Espresso"
+            </h2>
+        </div>
+
+        <!-- Section Graphic -->
+        <div class="relative rounded-3xl overflow-hidden shadow-sm mb-8 border border-neutral-100">
+            <img src="https://i.imgur.com/XFbCVii.png" onerror="this.src='https://placehold.co/400x250/eeeeee/333333?text=Kroki+Programu'" alt="Przebieg" class="w-full h-auto object-cover">
+        </div>
+
+        <!-- Interactive Step Timeline -->
+        <div class="relative pl-6 border-l-2 border-neutral-200 space-y-8 mb-10">
+            <!-- Step 1 -->
+            <div class="relative">
+                <!-- Dot marker -->
+                <span class="absolute -left-[31px] top-0 flex items-center justify-center w-4 h-4 rounded-full bg-gold-500 ring-4 ring-gold-100"></span>
+                <span class="text-[10px] font-bold text-gold-600 uppercase tracking-widest block mb-1">Dzień 1 - Rozpoczęcie</span>
+                <h3 class="font-bold text-sm text-dark font-sora mb-1">KROK 1 - Pobudzenie układu limfatycznego ciała</h3>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Otwieramy główne naczynia limfatyczne, aby skutecznie odprowadzić wodę nagromadzoną w nocy.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative">
+                <span class="absolute -left-[31px] top-0 flex items-center justify-center w-4 h-4 rounded-full bg-gold-500 ring-4 ring-gold-100"></span>
+                <span class="text-[10px] font-bold text-gold-600 uppercase tracking-widest block mb-1">Ruch ciała</span>
+                <h3 class="font-bold text-sm text-dark font-sora mb-1">KROK 2 - Poranny rozruch</h3>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Uwalniamy spięte powięzi ramion i karku. Bez rozluźnienia szyi lifting twarzy nie przyniesie trwałych efektów!
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative">
+                <span class="absolute -left-[31px] top-0 flex items-center justify-center w-4 h-4 rounded-full bg-gold-500 ring-4 ring-gold-100"></span>
+                <span class="text-[10px] font-bold text-gold-600 uppercase tracking-widest block mb-1">Drenaż</span>
+                <h3 class="font-bold text-sm text-dark font-sora mb-1">KROK 3 - Drenaż limfatyczny twarzy</h3>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Precyzyjne ruchy dłoni eliminujące opuchliznę powiek, policzków i okolic podbródka. Twarz natychmiast staje się smuklejsła.
+                </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative">
+                <span class="absolute -left-[31px] top-0 flex items-center justify-center w-4 h-4 rounded-full bg-gold-500 ring-4 ring-gold-100"></span>
+                <span class="text-[10px] font-bold text-gold-600 uppercase tracking-widest block mb-1">Automasaż gładzący</span>
+                <h3 class="font-bold text-sm text-dark font-sora mb-1">KROK 4 - Automasaż wygładzający obrzęki i zmarszczki senne</h3>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Głęboka praca z mięśniami mimicznymi twarzy. Rozprasowujemy zmarszczki między brwiami oraz fałdy nosowo-wargowe.
+                </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="relative">
+                <span class="absolute -left-[31px] top-0 flex items-center justify-center w-4 h-4 rounded-full bg-gold-500 ring-4 ring-gold-100"></span>
+                <span class="text-[10px] font-bold text-gold-600 uppercase tracking-widest block mb-1">Zakończenie rutyny</span>
+                <h3 class="font-bold text-sm text-dark font-sora mb-1">KROK 5 - Poranna rutyna pielęgnacyjna</h3>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Zasady właściwej aplikacji ulubionego kremu liftingującego i serum z efektem "glow", aby optymalnie zabezpieczyć skórę na cały dzień.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEKCJA OFERTA -->
+<section id="oferta" class="py-16 px-4 bg-stone-50 border-t border-neutral-100 relative">
+    <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
+
+    <div class="max-w-md mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-10">
+            <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Najlepsza Inwestycja w Siebie</span>
+            <h2 class="text-2xl font-extrabold text-dark tracking-tight leading-tight">
+                Zacznij Od Nowa Już Dzisiaj
+            </h2>
+            <p class="text-xs text-neutral-500 mt-2">Dostęp do pełnej, praktycznej wiedzy zawartej w 5 modułach.</p>
+        </div>
+
+        <!-- Main Product Card (Glassmorphism) -->
+        <div class="glass border-2 border-gold-300 rounded-3xl p-6 shadow-xl relative overflow-hidden mb-8">
+            <!-- Save Ribbon Badge -->
+            <div class="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                Zaoszczędź 20% 
+            </div>
+
+            <!-- Product Header -->
+            <h3 class="font-extrabold text-lg text-dark font-sora mb-1">Codzienne Lift Espresso Twarzy 10 min</h3>
+            <p class="text-xs text-neutral-400 mb-6 font-medium">Cyfrowy Program Treningowy Wideo</p>
+
+            <!-- Pricing Section -->
+            <div class="flex items-baseline gap-2.5 mb-6">
+                <span class="text-neutral-400 line-through text-sm font-semibold">150 zł</span>
+                <span class="text-3xl font-extrabold text-dark font-sora">119 zł</span>
+                <span class="text-xs font-bold text-gold-600 bg-gold-100/50 px-2.5 py-1 rounded-lg">Cena Promocyjna</span>
+            </div>
+
+            <!-- Bullet list of inclusions -->
+            <ul class="space-y-3 mb-8 text-xs text-neutral-700 border-t border-b border-neutral-200/50 py-5">
+                <li class="flex items-center gap-2">
+                    <i data-lucide="video" class="w-4 h-4 text-gold-500 shrink-0"></i> 5 modułów wideo z instruktażem krok po kroku
+                </li>
+                <li class="flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-gold-500 shrink-0"></i> Dostęp do zamkniętej platformy szkoleniowej
+                </li>
+                <li class="flex items-center gap-2">
+                    <i data-lucide="smartphone" class="w-4 h-4 text-gold-500 shrink-0"></i> Odtwarzanie na telefonie, tablecie, komputerze
+                </li>
+                <li class="flex items-center gap-2">
+                    <i data-lucide="infinity" class="w-4 h-4 text-gold-500 shrink-0"></i> Dożywotni, nielimitowany dostęp do nagrań
+                </li>
+            </ul>
+
+            <!-- Fast Purchase Action Button Block (No Input Fields) -->
+            <div id="purchase-form" class="space-y-4">
+                <a href="https://perfectface.elms.pl/s/poranne-lift-espresso.html" class="block w-full text-center py-4 px-6 bg-gradient-to-r from-dark to-neutral-800 text-white font-extrabold rounded-2xl shadow-lg uppercase tracking-wider text-xs font-sora transform active:scale-95 transition-all mt-6">
+                    KUPUJĘ DOSTĘP DO PROGRAMU!
+                </a>
+            </div>
+
+            <!-- Value Prop footer -->
+            <div class="text-center mt-6 pt-4 border-t border-neutral-200/50">
+                <p class="text-xs font-bold text-neutral-600">To znacznie mniej niż drogie kosmetyki czy pojedyncze zabiegi!</p>
+                <p class="text-[11px] text-gold-600 font-black uppercase tracking-widest mt-1">PŁACISZ RAZ, ODMŁADZASZ SIĘ CAŁY CZAS!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEKCJA FAQ (Accordion style) -->
+<section class="py-16 px-4 bg-white border-t border-neutral-100">
+    <div class="max-w-md mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <span class="text-gold-500 text-xs font-bold uppercase tracking-wider block mb-2">Masz pytania?</span>
+            <h2 class="text-2xl font-extrabold text-dark tracking-tight leading-tight">
+                Często Zadawane Pytania
+            </h2>
+        </div>
+
+        <!-- Accordion container -->
+        <div class="space-y-4">
+            <!-- Q1 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">1. Czy 10 minut dziennie naprawdę wystarczy?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Tak! Program został zaprojektowany tak, żeby był maksymalnie skuteczny w minimalnym czasie. Każdy krok działa synergicznie z pozostałymi, pobudzając i uwalniając naczynia limfatyczne sprawnie i bez zbędnych przerw.
+                </p>
+            </details>
+
+            <!-- Q2 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">2. Po jakim czasie zobaczę efekty?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Większość kobiet widzi różnicę już po pierwszej sesji – twarz jest o wiele mniej opuchnięta, skóra zyskuje zdrowy koloryt i jest bardziej promienna. Długoterminowe efekty (poprawa owalu, spłycenie głębszych bruzd i redukcja zmarszczek) zauważysz po 2-3 tygodniach regularnej, codziennej praktyki.
+                </p>
+            </details>
+
+            <!-- Q3 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">3. Czy muszę mieć jakieś specjalne produkty?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Nie. Wystarczy naturalny olej lub Twój codzienny, ulubiony krem, który już masz w łazience. W programie pokażę Ci, jak go właściwie aplikować i jakich ruchów dłoni użyć, aby wspomóc jego wchłanianie i działanie ujędrniające.
+                </p>
+            </details>
+
+            <!-- Q4 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">4. Czy masaż można wykonywać w każdym wieku?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Absolutnie. Program działa zarówno profilaktycznie (dla kobiet w wieku 20-30 lat, chroniąc przed opadaniem owalu), jak i silnie odmładzająco oraz regenerująco dla pań 40+. Układ limfatyczny i techniki stymulacji mięśniowej przynoszą fantastyczne korzyści w każdym wieku.
+                </p>
+            </details>
+
+            <!-- Q5 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">5. Jak długo mam dostęp do programu?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Kupujesz kurs tylko raz i masz do niego nieograniczony, dożywotni dostęp – tak długo, jak istnieć będzie nasza platforma. Możesz wracać do instrukcji wideo z dowolnego urządzenia, o dowolnej porze dnia i nocy.
+                </p>
+            </details>
+
+            <!-- Q6 -->
+            <details class="group class rounded-2xl p-4 border border-neutral-100 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                    <h3 class="text-xs font-bold text-dark font-sora pr-4">6. Co jeśli nie będę miała czasu codziennie?</h3>
+                    <span class="shrink-0 transition-transform duration-300 group-open:-rotate-180">
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500"></i>
+                    </span>
+                </summary>
+                <p class="mt-3 text-xs text-neutral-500 leading-relaxed">
+                    Im częściej wykonujesz ćwiczenia, tym lepsze, trwalsze efekty zauważysz. Jednak nawet jeśli wygospodarujesz 10 minut 3-4 razy w tygodniu, szybko odczujesz i zobaczysz znaczącą różnicę. Pamiętaj: lepiej robić regularnie i krócej niż wcale!
+                </p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- CLOSING VISION STATEMENT -->
+<section id="vision-section" class="py-16 px-4 bg-gradient-to-b from-stone-50 to-neutral-100 relative text-center">
+    <div class="max-w-md mx-auto">
+      <h2 class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#000000] text-2xl md:text-3xl font-extrabold font-sora">
+  WYBÓR NALEŻY DO CIEBIE KOCHANA
+
+        <h3 class="font-extrabold text-sm text-dark font-sora uppercase mb-6 tracking-wide">Dwie ścieżki - Twój Wybór</h3>
+        <div class="space-y-4 text-xs leading-relaxed mb-8">
+            <!-- Red Choice Block (Automatic highlighting on hover or scroll) -->
+            <div id="path-red" onclick="togglePath('red')" onmouseenter="activatePath('red')" onmouseleave="deactivatePath('red')" class="glass p-4 rounded-xl border-l-4 border-red-400 cursor-pointer transition-all duration-300 select-none text-neutral-600 hover:bg-red-50/50">
+                Możesz dalej budzić się każdego poranka i widzieć w odbiciu lustra opuchniętą, ziemistą i zmęczoną twarz, która dodaje Ci lat...
+            </div>
+            <p class="font-extrabold text-dark py-2">ALBO</p>
+            <!-- Green Choice Block (Automatic highlighting on hover or scroll) -->
+            <div id="path-green" onclick="togglePath('green')" onmouseenter="activatePath('green')" onmouseleave="deactivatePath('green')" class="glass p-4 rounded-xl border-l-4 border-green-400 font-medium cursor-pointer transition-all duration-300 select-none text-neutral-600 hover:bg-green-50/50">
+                Możesz zacząć jutro zupełnie inaczej. Poświęcić 10 minut i cieszyć się efektem od pierwszego dnia: świeżą, promienną i wyraźnie młodszą cerą!
+            </div>
+        </div>
+
+        <a href="#oferta" class="inline-block w-full max-w-sm py-6 px-8 bg-gradient-to-br from-neutral-900 to-black hover:from-amber-600 hover:to-amber-400 text-white hover:text-black font-extrabold text-lg tracking-[0.2em] uppercase rounded-full shadow-xl hover:shadow-amber-500/20 transition-all duration-500 transform hover:scale-105 border border-amber-500/30">
+    ZACZYNAM JUŻ JUTRO INACZEJ !
+</a>
+        </a>
+    </div>
+</section>
+
+<!-- Sticky CTA Bottom Bar (Hidden initially, shown after reaching/hovering the problem section) -->
+<div id="sticky-bar" class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200 py-3 px-4 transform translate-y-full transition-transform duration-300 shadow-xl">
+    <div class="max-w-md mx-auto flex items-center justify-between">
+        <div>
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Poranny Lifting</span>
+            <div class="flex items-baseline gap-1">
+                <span class="text-neutral-400 line-through text-[11px]">150 zł</span>
+                <span class="text-base font-extrabold text-dark font-sora">119 zł</span>
+            </div>
+        </div>
+        <a href="#oferta" class="bg-gradient-to-r from-gold-500 to-amber-500 text-dark px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
+            Odbierz 20% zniżki
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white py-12 px-4 text-center border-t border-neutral-800">
+    <div class="max-w-md mx-auto space-y-4">
+        <p class="text-[11px] text-neutral-400">© 2026 Poranny Lifting Trawzy 10 min. Wszelkie prawa zastrzeżone.</p>
+        <p class="text-[9px] text-neutral-500">Materiały zawarte na stronie mają charakter informacyjno-edukacyjny. Kurs nie zastępuje profesjonalnej porady medycznej.</p>
+    </div>
+</footer>
+
+<!-- JS Script for Controls -->
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Global Hover trigger flag for the pop-up
+    window.popupHoverTriggered = false;
+
+    // Set current date in DD.MM.YYYY format automatically on load
+    const dateSpan = document.getElementById('current-date');
+    if (dateSpan) {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        dateSpan.textContent = `${dd}.${mm}.${yyyy}`;
+    }
+
+    // Persistent 24-minute Countdown Timer implementation
+    const countdownEl = document.getElementById('timer-countdown');
+    if (countdownEl) {
+        const duration = 24 * 60; // 24 minutes in seconds
+        let timerKey = 'poranny_lifting_timer_expiry';
+        let expiryTime = localStorage.getItem(timerKey);
+        
+        if (!expiryTime) {
+            expiryTime = Date.now() + duration * 1000;
+            localStorage.setItem(timerKey, expiryTime);
+        } else {
+            expiryTime = parseInt(expiryTime, 10);
+            // If countdown already passed, refresh it back to 24 mins to keep incentive alive
+            if (Date.now() > expiryTime) {
+                expiryTime = Date.now() + duration * 1000;
+                localStorage.setItem(timerKey, expiryTime);
+            }
+        }
+
+        // Timer interval update function
+        function updateTimer() {
+            const now = Date.now();
+            const diff = expiryTime - now;
+
+            if (diff <= 0) {
+                countdownEl.textContent = "00:00";
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const displayMinutes = String(minutes).padStart(2, '0');
+            const displaySeconds = String(seconds).padStart(2, '0');
+
+            countdownEl.textContent = `${displayMinutes}:${displaySeconds}`;
+        }
+
+        updateTimer();
+        const timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // Interactive choice paths toggling logic
+    let clickedPath = null; // Track explicit click
+
+    // Function to activate path styling on hover/scroll
+    function activatePath(type) {
+        const redPath = document.getElementById('path-red');
+        const greenPath = document.getElementById('path-green');
+        if (!redPath || !greenPath) return;
+
+        if (type === 'red') {
+            redPath.classList.add('!bg-red-500', '!text-white');
+            greenPath.classList.remove('!bg-green-600', '!text-white');
+        } else if (type === 'green') {
+            greenPath.classList.add('!bg-green-600', '!text-white');
+            redPath.classList.remove('!bg-red-500', '!text-white');
+        }
+    }
+
+    // Handle deactivating paths dynamically
+    function deactivatePath(type) {
+        const redPath = document.getElementById('path-red');
+        const greenPath = document.getElementById('path-green');
+        if (!redPath || !greenPath) return;
+
+        // If a path is selected by click, preserve it, otherwise clean styling
+        if (clickedPath === 'red') {
+            redPath.classList.add('!bg-red-500', '!text-white');
+            greenPath.classList.remove('!bg-green-600', '!text-white');
+        } else if (clickedPath === 'green') {
+            greenPath.classList.add('!bg-green-600', '!text-white');
+            redPath.classList.remove('!bg-red-500', '!text-white');
+        } else {
+            redPath.classList.remove('!bg-red-500', '!text-white');
+            greenPath.classList.remove('!bg-green-600', '!text-white');
+        }
+    }
+
+    function togglePath(type) {
+        if (clickedPath === type) {
+            clickedPath = null;
+            deactivatePath(type);
+        } else {
+            clickedPath = type;
+            activatePath(type);
+        }
+    }
+
+    // Automatic activation of paths based on scroll position (Mobile / Tablet friendly)
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // When "Two Paths" section becomes visible, automatically highlight the positive green path
+                if (entry.isIntersecting && !clickedPath) {
+                    activatePath('green');
+                }
+            });
+        }, { threshold: 0.4 });
+        
+        const visionSection = document.getElementById('vision-section');
+        if (visionSection) {
+            observer.observe(visionSection);
+            
+            // Hover logic for the entire section container
+            visionSection.addEventListener('mouseenter', () => {
+                if (!clickedPath) {
+                    activatePath('green');
+                }
+            });
+            visionSection.addEventListener('mouseleave', () => {
+                if (!clickedPath) {
+                    deactivatePath('green');
+                }
+            });
+        }
+    }
+
+    // Sticky Bottom Bar visibility on scroll (Triggered specifically by the Problem section) & Header Opacity
+    window.addEventListener('scroll', function() {
+        // Change header glass opacity on scroll
+        const header = document.getElementById('main-header');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('px-0', 'py-1');
+            } else {
+                header.classList.remove('px-0', 'py-1');
+            }
+        }
+
+        // Trigger pop-up when reaching section: 'Dlaczego skóra traci młodość?'
+        const problemSection = document.getElementById('sekcja-problem');
+        const stickyBar = document.getElementById('sticky-bar');
+        if (problemSection && stickyBar) {
+            const rect = problemSection.getBoundingClientRect();
+            // Shows once the top of the section enters the viewport, or if hovered
+            if (rect.top <= window.innerHeight || window.popupHoverTriggered) {
+                stickyBar.classList.remove('translate-y-full');
+            } else {
+                stickyBar.classList.add('translate-y-full');
+            }
+        }
+    });
+
+    // Hover trigger for desktop - Hovering over 'Dlaczego skóra traci młodość?' section pops up the bar immediately
+    const problemSection = document.getElementById('sekcja-problem');
+    const stickyBar = document.getElementById('sticky-bar');
+    if (problemSection) {
+        problemSection.addEventListener('mouseenter', function() {
+            window.popupHoverTriggered = true;
+            if (stickyBar) {
+                stickyBar.classList.remove('translate-y-full');
+            }
+        });
+    }
+
+    // Hover-Play & Mobile Autoplay video mechanics
+    const video = document.getElementById('problem-video');
+    const playIcon = document.getElementById('play-icon');
+
+    // Function to update icon state accurately
+    function updatePlayIcon() {
+        if (video.paused) {
+            playIcon.setAttribute('data-lucide', 'play');
+        } else {
+            playIcon.setAttribute('data-lucide', 'pause');
+        }
+        lucide.createIcons();
+    }
+
+    // Trigger video play on hover/interaction safely
+    function toggleVideoPlay() {
+        if (video.paused) {
+            video.play().then(() => {
+                updatePlayIcon();
+                // Ensure text on mobile exit doesn't pause after click
+                window.popupHoverTriggered = true; 
+            }).catch(err => console.log('Interakcja użytkownika zablokowana przez przeglądarkę', err));
+        } else {
+            video.pause();
+            updatePlayIcon();
+        }
+    }
+
+    // Ensure video autoplays immediately on mobile and desktop
+    window.addEventListener('DOMContentLoaded', () => {
+        video.play().then(() => {
+            updatePlayIcon();
+        }).catch(err => {
+            console.log('Autoplay blocked, waiting for user interaction', err);
+        });
+    });
+
+    // Handle play/pause event listeners on the video itself to keep UI in sync
+    video.addEventListener('play', updatePlayIcon);
+    video.addEventListener('pause', updatePlayIcon);
+
+    // Auto-play trigger when hovering over video container (desktop convenience)
+    video.parentElement.addEventListener('mouseenter', () => {
+        video.play().catch(err => {});
+    });
+    video.parentElement.addEventListener('mouseleave', () => {
+        // Don't pause on mobile exit to preserve flow, only on desktop if hovering out
+        if (window.innerWidth > 768) {
+            video.pause();
+        }
+    });
+
+    // Form submission simulation
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        const form = document.getElementById('purchase-form');
+        const successMessage = document.getElementById('form-success-message');
+
+        // Hide form fields slowly
+        if (form) {
+            form.classList.add('opacity-50', 'pointer-events-none');
+            // Show success confirmation after delay
+            setTimeout(() => {
+                form.classList.add('hidden');
+                if (successMessage) {
+                    successMessage.classList.remove('hidden');
+                }
+            }, 800);
+        }
+    }
+</script>
+</body>
+</html>
